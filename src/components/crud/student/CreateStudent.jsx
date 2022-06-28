@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-//import axios from "axios";
 
 import FirebaseContext from "../../../utils/FirebaseContext";
 import FirebaseStudentService from "../../../services/FirebaseStudentService";
@@ -67,25 +66,9 @@ function CreateStudent(props) {
         setLoading(true)
         if(!validateFields()) return
         const newStudent = { name, course, ira }
-        //axios.post('http://localhost:3001/students', newStudent)
-        /*axios.post('http://localhost:3002/crud/students/create', newStudent)
-            .then(
-                (res) => {
-                    console.log(res.data._id)
-                    alert(`Aluno ${name} criado com sucesso.`)
-                    navigate("/listStudent")
-                }
-            )
-            .catch(
-                (error) => {
-                    console.log(error)
-                }
-            )
-        */
        FirebaseStudentService.create(
            props.firebase.getFirestoreDb(),
            ()=>{
-            //alert(`Aluno ${name} criado com sucesso.`)
             props.setToast({header:'Sucesso!',body:`Aluno ${name} criado com sucesso.`})
             props.setShowToast(true)
             setLoading(false)

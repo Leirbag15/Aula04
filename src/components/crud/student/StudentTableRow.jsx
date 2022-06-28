@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-//import axios from "axios";
 import FirebaseStudentService from "../../../services/FirebaseStudentService";
 
 const StudentTableRow = (props) => {
@@ -10,17 +9,12 @@ const StudentTableRow = (props) => {
     function deleteStudent() {
         setLoading(true)
         if (window.confirm(`Deseja excluir o elemento de ID: ${_id}?`)) {
-            //axios.delete(`http://localhost:3001/students/${_id}`)
-            /*axios.delete(`http://localhost:3002/crud/students/delete/${_id}`)
-                .then(response => props.deleteStudentById(_id))
-                .catch(error => console.log(error))*/
             FirebaseStudentService.delete(
                 props.firestore,
                 ()=>{
                     setLoading(false)
                     props.setToast({ header: 'Erro!', body: 'Estudante ' + _id + ' apagado com sucesso!' })
                     props.setShowToast(true)
-                    //alert('Estudante ' + _id + ' apagado com sucesso!')
                 },
                 _id)
 

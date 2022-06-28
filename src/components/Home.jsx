@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-//import { Toast, ToastContainer } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 import FirebaseUserService from "../services/FirebaseUserService";
 import FirebaseContext from "../utils/FirebaseContext";
-//import MyToast from "../utils/MyToast";
 
 const HomePage = ({setLogged,setShowToast,setToast}) =>
     <FirebaseContext.Consumer>
@@ -22,7 +20,6 @@ function Home(props) {
     const [loading, setLoading] = useState(false)
 
     const [validate,setValidate] = useState({login:'',password:''})
-    //const [showToast, setShowToast] = useState(false);
     const navigate = useNavigate()
 
     const validateFields = () => {
@@ -47,21 +44,17 @@ function Home(props) {
         event.preventDefault()
         setLoading(true)
         if(!validateFields()) return
-        //console.log(login)
-        //console.log(password)
         FirebaseUserService.login(
             props.firebase.getAuthentication(),
             login,
             password,
             (user) => {
                 if (user != null) {
-                    //console.log(user.email)
                     setLoading(false)
                     props.firebase.setUser(user)
                     props.setLogged(true)
                     navigate('/listStudent')
                 } else {
-                    //alert('Usuário e/ou senha incorretos!')
                     setLoading(false)
                     props.setToast({header:'Erro!',body:'Login e/ou Senha incorreto(s).'})
                     props.setShowToast(true)
@@ -90,25 +83,6 @@ function Home(props) {
         )
     }
 
-    /*const renderToast = () => {
-        return <MyToast
-            show={showToast}
-            header='Erro!'
-            body='Login e/ou Senha incorreto(s).'
-            setShowToast={setShowToast}
-            bg='primary'
-        />
-        // return (
-        //     <ToastContainer position="top-center" style={{marginTop:10}}>
-        //         <Toast onClose={() => setShow(false)} show={show} delay={5000} autohide>
-        //             <Toast.Header>
-        //                 <strong className="me-auto">Erro!</strong>
-        //             </Toast.Header>
-        //             <Toast.Body>Login e/ou Senha incorreto(s).</Toast.Body>
-        //         </Toast>
-        //     </ToastContainer>
-        // )
-    }*/
 
     return (
         <div className="content-login" style={{ marginTop: 50 }}>

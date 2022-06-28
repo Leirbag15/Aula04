@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-//import { Toast, ToastContainer } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 import FirebaseUserService from "../services/FirebaseUserService";
 import FirebaseContext from "../utils/FirebaseContext";
-//import MyToast from "../utils/MyToast"; //TOAST
 
 const SignUpPage = ({setLogged,setShowToast,setToast}) =>
     <FirebaseContext.Consumer>
@@ -22,8 +20,6 @@ function SignUp(props) {
     const [repassword, setRepassword] = useState('')
     const [loading, setLoading] = useState(false)
 
-    //const [showToast, setShowToast] = useState(false); //TOAST
-    //const [toast, setToast] = useState({header:'',body:''}) //TOAST
     
     const [validate,setValidate] = useState({login:'',password:'',repassword:''})
     const navigate = useNavigate()
@@ -67,37 +63,17 @@ function SignUp(props) {
             password,
             (res,content) => {
                 if (res) {
-                    //console.log(user.email)
                     setLoading(false)
                     props.firebase.setUser(content)
                     props.setLogged(true)
                     navigate('/listStudent')
                 } else {
-                    //alert('Usuário e/ou senha incorretos!')
                     props.setToast({header:'Erro!',body:content})
                     props.setShowToast(true)
                     setLoading(false)
                 }
             }
         )
-        /*FirebaseUserService.login(
-            props.firebase.getAuthentication(),
-            login,
-            password,
-            (user) => {
-                if (user != null) {
-                    //console.log(user.email)
-                    setLoading(false)
-                    props.firebase.setUser(user)
-                    props.setLogged(true)
-                    navigate('/listStudent')
-                } else {
-                    //alert('Usuário e/ou senha incorretos!')
-                    setLoading(false)
-                    setShowToast(true)
-                }
-            }
-        )*/
     }
 
     const renderSubmitButton = () => {
@@ -120,20 +96,10 @@ function SignUp(props) {
         )
     }
 
-    //TOAST
-    /*const renderToast = () => {
-        return <MyToast
-            show={showToast}
-            header={toast.header}
-            body={toast.body}
-            setShowToast={setShowToast}
-            bg='secondary'
-        />
-    }*/
 
     return (
         <div className="content-login" style={{ marginTop: 50 }}>
-            {/*Toast*/}
+            {}
             <main style={{ width: '40%' }}>
                 <h2>Cadastre-se</h2>
                 <form onSubmit={handleSubmit}>
